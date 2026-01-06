@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   backend:  # This service name must match the one in the main docker-compose.yml
     command: >
