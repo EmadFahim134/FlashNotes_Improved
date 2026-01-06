@@ -1,9 +1,12 @@
+version: '3.9'
 services:
-  backend:  # This service name must match the one in the main docker-compose.yml
+  backend:
     command: >
       sh -c "
-      python -m debugpy --wait-for-client --listen 0.0.0.0:5678
-      -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+      # Install debugpy first
+      pip install debugpy -q &&
+      # Then start with debugger waiting
+      python -m debugpy --wait-for-client --listen 0.0.0.0:5678 -m uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
       "
     ports:
-      - "5678:5678"  # Expose the debugger port
+      - "5678:5678"  # ADD this line - crucial for VS Code to connect
